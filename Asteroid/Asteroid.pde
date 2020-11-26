@@ -1,5 +1,5 @@
 boolean w, a, s, d, space;
-int mode, timer;
+int mode, timer, livestimer;
 Spaceship myShip;
 ArrayList<GameObject>myObjects;
 
@@ -23,6 +23,7 @@ void setup() {
   myObjects.add(new Spacerock());
   myObjects.add(new Spacerock());
   timer = 0;
+  livestimer = 0;
   frameRate(75);
 }
 

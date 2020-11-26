@@ -1,5 +1,10 @@
 void game() {
   background(0);
+  rect(width - 1, -1, 50, 55);
+  rect(width - 6, 12, 5, 15);
+  rect(width - 16, 12, 5, 15);
+  
+  println(mouseX, mouseY);
   
   //####################BULLETS####################
   int i = 0;
@@ -14,11 +19,16 @@ void game() {
     }
   }
   
+  fill(255);
+  textSize(20);
+  text("Lives: " + myShip.lives, width/2, 25);
+  
   myShip.show();
   myShip.act();
   
   timer++;
-  if(timer > 5) timer = 0;
+  if(timer > 15) timer = 0;
+  livestimer++;
 }
 
 void keyPressed(){
@@ -38,13 +48,10 @@ void keyReleased(){
 } 
  
 void gameClicks() {
-  if (buttonPressed(750, 25, 100, 50)) {
+  if (buttonPressed(width - 1, -1, 50, 55)) {
     mode = PAUSE;
   }
   if (buttonPressed(400, 400, 100, 50)) {
     mode = GAMEOVER;
   }
 }
-
-  //button(750, 25, 100, 50, "Pause");
-  //button(400, 400, 100, 50, "Win");
