@@ -9,9 +9,8 @@ class GameObject {
   }
 
   void show() {
+    stroke(255, 255);
     ellipse(location.x, location.y, size, size);
-    stroke(255);
-    fill(0);
     strokeWeight(2);
   }
 

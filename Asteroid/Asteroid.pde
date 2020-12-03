@@ -1,6 +1,8 @@
 boolean w, a, s, d, space;
-int mode, timer, livestimer;
+int mode, btimer, livestimer, i, ufotimer;
 Spaceship myShip;
+UFO myUFO;
+Bullet myBullet;
 ArrayList<GameObject>myObjects;
 
 final int INTRO = 0;
@@ -9,21 +11,19 @@ final int PAUSE = 2;
 final int GAMEOVER = 3;
 
 void setup() {
+  i = 0;
   size(800, 800);
   myShip = new Spaceship();
   myObjects = new ArrayList<GameObject>();
-  myObjects.add(new Spacerock());
-  myObjects.add(new Spacerock());
-  myObjects.add(new Spacerock());
-  myObjects.add(new Spacerock());
-  myObjects.add(new Spacerock());
-  myObjects.add(new Spacerock());
-  myObjects.add(new Spacerock());
-  myObjects.add(new Spacerock());
-  myObjects.add(new Spacerock());
-  myObjects.add(new Spacerock());
-  timer = 0;
-  livestimer = 0;
+  while (i < 12) {
+    myObjects.add(new Spacerock());
+    i++;
+  }
+  myObjects.add(new UFO());
+
+  btimer = 0;
+  ufotimer= 0 ;
+  livestimer = 1;
   frameRate(75);
 }
 
