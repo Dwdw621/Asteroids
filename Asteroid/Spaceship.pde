@@ -32,6 +32,19 @@ class Spaceship extends GameObject {
 
   void act() {
     super.act();
+    
+    int i = 0;
+    while (i < myObjects.size()) {
+      GameObject myObj = myObjects.get(i);
+      if (myObj instanceof UFOBullet) {
+        if (dist(location.x, location.y, myObj.location.x, myObj.location.y) <= size + myObj.size) {
+          myObj.lives = 0;
+          livestimer = 0;
+          lives--;
+        }
+      }
+      i++;
+    }
 
     if (a) direction.rotate(-.05); 
     if (d) direction.rotate(.05);

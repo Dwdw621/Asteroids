@@ -1,5 +1,6 @@
 boolean w, a, s, d, space;
-int mode, btimer, livestimer, i, ufotimer;
+int mode, btimer, livestimer, i, ufobtimer, rockcount, ufocount;
+float ufospawner,ufodirection;
 Spaceship myShip;
 UFO myUFO;
 Bullet myBullet;
@@ -19,12 +20,12 @@ void setup() {
     myObjects.add(new Spacerock());
     i++;
   }
-  myObjects.add(new UFO());
 
   btimer = 0;
-  ufotimer= 0 ;
+  ufobtimer= 0 ;
   livestimer = 1;
   frameRate(75);
+  ufospawner = 0;
 }
 
 void draw() {

@@ -4,7 +4,7 @@ void button(int x, int y, int w, int h, String label) {
   } else {
     fill(255);
   }
-
+  stroke(255, 255, 255, 255);
   rectMode(CENTER);
   rect(x, y, w, h);
   strokeWeight(2);

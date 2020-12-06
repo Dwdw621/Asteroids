@@ -59,7 +59,7 @@ class Spacerock extends GameObject {
     int i = 0;
     while (i <myObjects.size()) {
       GameObject myObj = myObjects.get(i);
-      if (myObj instanceof Bullet) {
+      if (myObj instanceof Bullet || myObj instanceof UFOBullet) {
         if (dist(location.x, location.y, myObj.location.x, myObj.location.y) <= size/2 + myObj.size) {
           myObj.lives = 0;
           lives = 0;
