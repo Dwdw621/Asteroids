@@ -1,14 +1,15 @@
 class Spaceship extends GameObject {
   //1. Instance variable (Values)
   PVector direction;
-  int alpha;
+  int alpha, GOtimer;
 
   //2. Constructors (Set the values)
   Spaceship() {
     location = new PVector(width/2, height/2);
     velocity = new PVector(0, 0);
     direction = new PVector(.075, 0);
-    lives = 192837465;
+    lives = 3;
+    GOtimer = 0;
   }
 
 
@@ -21,9 +22,13 @@ class Spaceship extends GameObject {
     translate(location.x, location.y); //Rotation needs to happen at origin
     rotate(direction.heading());
     triangle(-15, -6, -15, 6, 10, 0);
+
+    //##### FLAMES #####
     if (w) { 
       triangle(-15, -2.5, -25, 0, -15, 2.5);
-      myObjects.add(new Fire());
+      if (lives > 0) {
+        myObjects.add(new Fire());
+      }
     }
     if (a) triangle(-15, 2.5, -20, 4.25, -15, 6);
     if (d) triangle(-15, -2.5, -20, -4.25, -15, -6);    
@@ -32,7 +37,7 @@ class Spaceship extends GameObject {
 
   void act() {
     super.act();
-    
+
     int i = 0;
     while (i < myObjects.size()) {
       GameObject myObj = myObjects.get(i);
@@ -41,6 +46,8 @@ class Spaceship extends GameObject {
           myObj.lives = 0;
           livestimer = 0;
           lives--;
+          damage.rewind();
+          damage.play();
         }
       }
       i++;
@@ -55,8 +62,10 @@ class Spaceship extends GameObject {
     if (velocity.x < -3) velocity.x = -3;
     if (velocity.y < -3) velocity.y = -3;
     if (velocity.mag() > 0) velocity.setMag(velocity.mag() - .025);
-    if (space && btimer > 25) { 
+    if (lives > 0 && space && btimer > 25) { 
       myObjects.add(new Bullet(location.x, location.y, direction.x, direction.y)); 
+      shoot.rewind();
+      shoot.play();
       btimer = 0;
     }
 
@@ -66,13 +75,24 @@ class Spaceship extends GameObject {
     if (location.y < 0 - 25) location.y = height + 25;
 
     if (lives <= 0) {
-      mode = GAMEOVER;
+      alpha = 0;
+      GOtimer++;
+      if (GOtimer > 50) {
+        mode = GAMEOVER;
+        gameover.play();
+      }
+      while (i < 10) {
+        myObjects.add(new SpacerockP(location.x, location.y));
+        i++;
+      }
     }
 
-    if (livestimer < 60) {
-      alpha = 100;
-    } else {
-      alpha = 255;
+    if (lives > 0) {
+      if (livestimer < 60) {
+        alpha = 100;
+      } else {
+        alpha = 255;
+      }
     }
   }
 }

@@ -52,6 +52,8 @@ class Spacerock extends GameObject {
       if (livestimer > 60) {
         myShip.lives--;
         livestimer = 0;
+        damage.rewind();
+        damage.play();
       }
     }
 
@@ -63,6 +65,8 @@ class Spacerock extends GameObject {
         if (dist(location.x, location.y, myObj.location.x, myObj.location.y) <= size/2 + myObj.size) {
           myObj.lives = 0;
           lives = 0;
+          explosion.rewind();
+          explosion.play();
           if (size > 30) {
             myObjects.add(new Spacerock(size/2, location.x, location.y));
             myObjects.add(new Spacerock(size/2, location.x, location.y));

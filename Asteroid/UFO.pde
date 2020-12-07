@@ -24,7 +24,14 @@ class UFO extends GameObject {
     stroke(255);
     ellipse(location.x, location.y - size/2, size, size);
     ellipse(location.x, location.y, size*2, size/2);
-    //line(location.x, location.y, location.x + myShip.location.x, location.y + myShip.location.y);
+    if (lives < 1) {
+      while (i < 10) {
+        myObjects.add(new SpacerockP(location.x, location.y));
+        i++;
+        explosion.rewind();
+        explosion.play();
+      }
+    }
 
 
     if (ufodirection < 1) {
@@ -46,11 +53,15 @@ class UFO extends GameObject {
   }
 
   void act() {
-    location.add(velocity);
+    super.act();
 
-    if (ufobtimer > 60) {
-      myObjects.add(new UFOBullet(location.x, location.y, myShip.location.x, myShip.location.y));
-      ufobtimer = 0;
+    if (myShip.lives > 0) {
+      if (ufobtimer > 60) {
+        myObjects.add(new UFOBullet(location.x, location.y, myShip.location.x - location.x, myShip.location.y - location.y));
+        ufobtimer = 0;
+        shoot.rewind();
+        shoot.play();
+      }
     }
 
     if (location.x > width + 25 || location.x < 0 - 25 || location.y > height + 25 || location.y < 0 - 25) lives = 0;

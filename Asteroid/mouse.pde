@@ -7,6 +7,8 @@ void mouseReleased() {
     pauseClicks();
   } else if (mode == GAMEOVER) {
     gameoverClicks();
+  } else if (mode == WIN) {
+    winClicks();
   } else {
     println("mode is " + mode );
   }

@@ -1,4 +1,7 @@
 void game() {
+  theme.play();
+  intro.pause();
+  intro.rewind();
   background(0);
   stroke(255, 255, 255, 255);
   rect(width - 1, -1, 50, 55);
@@ -27,10 +30,8 @@ void game() {
   }
 
   //#################### UFO Spawn ####################
-  println(ufocount);
-
   if (ufocount <= 0) {
-    ufospawner = random(0, 800);
+    ufospawner = random(0, 600);
     ufodirection = random(0, 4);
     if (ufospawner < 1) {
       myObjects.add(new UFO());
@@ -41,8 +42,8 @@ void game() {
   //#################### Lives Count ####################
   fill(255);
   if (livestimer < 30) fill(255, 0, 0);
-  textSize(20);
-  text("Lives: " + myShip.lives, width/2, 25);
+  textSize(100);
+  text("Lives: " + myShip.lives, width/2, 40);
 
   myShip.show();
   myShip.act();
@@ -51,8 +52,10 @@ void game() {
   livestimer++;
   btimer++;
 
-  line(myShip.location.x, myShip.location.y, myShip.location.x + myShip.velocity.x * 10, myShip.location.y + myShip.velocity.y * 10);
-  line(myShip.location.x, myShip.location.y, myShip.location.x + myShip.direction.x * 500, myShip.location.y + myShip.direction.y * 500);
+  if (rockcount <= 0) {
+    mode = WIN;
+    win.play();
+  }
 }
 
 void keyPressed() {
@@ -94,8 +97,5 @@ void keyReleased() {
 void gameClicks() {
   if (buttonPressed(width - 1, -1, 50, 55)) {
     mode = PAUSE;
-  }
-  if (buttonPressed(400, 400, 100, 50)) {
-    mode = GAMEOVER;
   }
 }
